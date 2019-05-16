@@ -2,12 +2,12 @@
     <div class="box">
         <?php
 
-        //diretorio de imagens
+        //directory
         $dir = 'images';
         $a = array();
         $random = mt_rand();
 
-        //carrega array com imagem aleatoria
+        //load array with random image
         if ($handle = opendir($dir)) {
             while (false !== ($entry = readdir($handle))) {
                 if ($entry != "." && $entry != "..") {
@@ -17,44 +17,47 @@
             closedir($handle);
         }
 
-        //seleciona imagem aleatoria e carrega
+        //select random image
         $src = $a[array_rand($a)];
         echo '<img src="' . $src . '" width="300">';
 
-        //inicia session
+        //start session
         session_start();
 
-        //verifica score
+        //check score
         $score = 0;
         if (isset($_SESSION['score']))
             $score = (int)$_SESSION['score'];
         else
             $_SESSION['score'] = $score;
 
-        //inicia tipo
+        //start type
         $type = explode('.', $src)[1];
         echo '<input type="hidden" name="type" value="' . $type . '" />';
 
-        //verifica tipo e resposta
+        //check type and answer
         $answer = '';
         if (isset($_POST['action']) && isset($_POST['type']) && isset($_POST['answer'])) {
             $type = $_POST['type'];
             $answer = $_POST['answer'];
         }
 
-        //adiciona score
+        //add score
         if ($type == 'svg' && $answer == 'vetorial') {
             $score += 1;
             $_SESSION['score'] = $score;
+            echo '<audio id="audio" src="audios/goal.wav" type="audio/wav" autoplay></audio>';
         } else if (($type == 'jpg' || $type == 'png' || $type == 'bmp') && $answer == 'bitmap') {
             $score += 1;
             $_SESSION['score'] = $score;
+            echo '<audio id="audio" src="audios/goal.wav" type="audio/wav" autoplay></audio>';
         } else if ($type == 'gif'  && $answer == 'animation') {
             $score += 1;
             $_SESSION['score'] = $score;
+            echo '<audio id="audio" src="audios/goal.wav" type="audio/wav" autoplay></audio>';
         }
 
-        //limpa score
+        //clean score
         if ($answer == 'clear') {
             unset($_SESSION['score']);
         }
@@ -81,6 +84,7 @@
 </form>
 
 <?php
+//check if user won
 if (isset($_SESSION['score'])) {
     $score = (int)$_SESSION['score'];
     if ($score == 10) {

@@ -11,7 +11,7 @@
 
 <body style="background: #333;">
 
-    <audio id="audio" src="audios/file_example_WAV_1MG.wav" autoplay></audio>
+    <audio id="audio" src="audios/file_example_WAV_1MG.wav" type="audio/wav" autoplay></audio>
 
     <iframe id="iframe" src="media.php" width="100%" height="600" style="border: 0"></iframe>
 
