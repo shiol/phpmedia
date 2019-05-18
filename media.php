@@ -19,7 +19,7 @@
 
         //select random image
         $src = $a[array_rand($a)];
-        echo '<img src="' . $src . '" width="300">';
+        echo '<img src="' . $src . '" height="300">';
 
         //start session
         session_start();
@@ -55,11 +55,14 @@
             $score += 1;
             $_SESSION['score'] = $score;
             echo '<audio id="audio" src="audios/goal.wav" type="audio/wav" autoplay></audio>';
+        } else if ($answer != 'clear' && isset($_POST['action'])) {
+            echo '<audio id="audio" src="audios/error.wav" type="audio/wav" autoplay></audio>';
         }
 
         //clean score
         if ($answer == 'clear') {
             unset($_SESSION['score']);
+            echo '<audio id="audio" src="audios/clear.wav" type="audio/wav" autoplay></audio>';
         }
 
         ?>
@@ -74,22 +77,47 @@
         O que eu sou?
     </div>
 
-    <div class="box">
-        <input type="hidden" name="action" value="submit" />
-        <input type="submit" name="answer" value="vetorial">
-        <input type="submit" name="answer" value="bitmap">
-        <input type="submit" name="answer" value="animation">
-        <input type="submit" name="answer" value="clear">
-    </div>
+    <?php
+    //if user won, then disabled answers buttons
+    if (isset($_SESSION['score'])) {
+        $score = (int)$_SESSION['score'];
+        if ($score == 10) {
+            echo '<div class="box">
+            <input type="hidden" name="action" value="submit" />
+            <input type="submit" name="answer" value="vetorial" disabled>
+            <input type="submit" name="answer" value="bitmap" disabled>
+            <input type="submit" name="answer" value="animation" disabled>
+            <input type="submit" name="answer" value="clear">
+        </div>';
+        } else {
+            echo '<div class="box">
+            <input type="hidden" name="action" value="submit" />
+            <input type="submit" name="answer" value="vetorial">
+            <input type="submit" name="answer" value="bitmap">
+            <input type="submit" name="answer" value="animation">
+            <input type="submit" name="answer" value="clear">
+        </div>';
+        }
+    } else {
+        echo '<div class="box">
+            <input type="hidden" name="action" value="submit" />
+            <input type="submit" name="answer" value="vetorial">
+            <input type="submit" name="answer" value="bitmap">
+            <input type="submit" name="answer" value="animation">
+            <input type="submit" name="answer" value="clear">
+        </div>';
+    }
+    ?>
 </form>
 
 <?php
-//check if user won
+//if user won, show win box
 if (isset($_SESSION['score'])) {
     $score = (int)$_SESSION['score'];
     if ($score == 10) {
         unset($_SESSION['score']);
         echo '<div class="box">Você venceu!</div>';
+        echo '<audio id="audio" src="audios/won.wav" type="audio/wav" autoplay></audio>';
     }
 }
 ?>
