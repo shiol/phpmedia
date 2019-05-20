@@ -111,4 +111,8 @@ echo '</form>';
         width: auto;
         color: lightgray;
     }
+    
+    body{
+        background: #333;
+    }
 </style>
