@@ -42,7 +42,7 @@ if (isset($_POST['action']) && isset($_POST['type']) && isset($_POST['answer']))
 if ($type == 'svg' && $answer == 'vetorial') {
     $score += 1;
     echo '<audio id="audio" src="audios/goal.wav" type="audio/wav" autoplay></audio>';
-} else if (($type == 'jpg' || $type == 'png' || $type == 'bmp') && $answer == 'bitmap') {
+} else if (($type == 'jpg' || $type == 'png' || $type == 'bmp') && $answer == 'matricial') {
     $score += 1;
     echo '<audio id="audio" src="audios/goal.wav" type="audio/wav" autoplay></audio>';
 } else if ($type == 'gif'  && $answer == 'animation') {
@@ -74,7 +74,7 @@ if ($score == 10) {
     echo '<div class="box">';
     echo '<input type="hidden" name="action" value="submit" />';
     echo '<input type="submit" name="answer" value="vetorial" disabled>';
-    echo '<input type="submit" name="answer" value="bitmap" disabled>';
+    echo '<input type="submit" name="answer" value="matricial" disabled>';
     echo '<input type="submit" name="answer" value="animation" disabled>';
     echo '<input type="submit" name="answer" value="clear">';
     echo '</div>';
@@ -82,7 +82,7 @@ if ($score == 10) {
     echo '<div class="box">';
     echo '<input type="hidden" name="action" value="submit" />';
     echo '<input type="submit" name="answer" value="vetorial">';
-    echo '<input type="submit" name="answer" value="bitmap">';
+    echo '<input type="submit" name="answer" value="matricial">';
     echo '<input type="submit" name="answer" value="animation">';
     echo '<input type="submit" name="answer" value="clear">';
     echo '</div>';
@@ -111,8 +111,17 @@ echo '</form>';
         width: auto;
         color: lightgray;
     }
-    
-    body{
+
+    body {
         background: #333;
+    }
+
+    input[type=button],
+    input[type=submit],
+    input[type=reset] {
+        border-radius: 10px;
+        min-width: 100px;
+        min-height: 30px;
+        margin-left: 10px;
     }
 </style>
