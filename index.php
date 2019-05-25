@@ -17,7 +17,7 @@
     <script>
         var x = document.getElementById("audio");
         window.onload = function() {
-            x.volume = "0.5";
+            x.volume = "0.3";
         };
     </script>
 </body>
