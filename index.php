@@ -14,6 +14,12 @@
 
     <iframe id="iframe" src="media.php" width="100%" height="600" style="border: 0"></iframe>
 
+    <script>
+        var x = document.getElementById("audio");
+        window.onload = function() {
+            x.volume = "0.5";
+        };
+    </script>
 </body>
 
 </html>
